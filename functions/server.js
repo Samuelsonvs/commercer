@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
-import userRouter from './routers/UserRouter.js';
+import userRouter from './routers/userRouter.js';
 import productRouter from './routers/productRouter.js';
 import orderRouter from './routers/orderRouter.js';
 
