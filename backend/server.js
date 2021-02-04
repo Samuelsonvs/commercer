@@ -9,7 +9,11 @@ import orderRouter from './routers/orderRouter.js';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 5000;
+
+// const API = process.env.NODE_ENV === 'production'
+// ? 'https://serene-noether-85f6ab.netlify.app/api' 
+// : 'http://localhost:5000/api';
+// const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(express.json());
@@ -50,6 +54,6 @@ app.use((err, req, res, next) =>{
     res.status(500).send({message: err.message});
 });
 
-app.listen(PORT, () => {
-    console.log('Serve at http://localhost:5000');
-});
+// app.listen(PORT, () => {
+//     console.log('Serve at http://localhost:5000');
+// });
