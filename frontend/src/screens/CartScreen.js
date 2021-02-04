@@ -26,7 +26,7 @@ export default function CartScreen(props) {
         props.history.push('/signin?redirect=shipping');
     };
     
-    const willbe = async() => {
+    const willbe = async() => {                      //look
         const b = await Axios.get('/api/hello');
         console.log(b.message);
     };
