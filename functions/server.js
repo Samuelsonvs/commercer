@@ -44,9 +44,16 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/amazon', {
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
-app.get('/', (req, res) => {
-    res.send('Server is ready');
-});
+
+
+app.use(express.static(path.join(__dirname, '/frontend/build')));
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
+);
+
+// app.get('/', (req, res) => {
+//     res.send('Server is ready');
+// });
 
 app.get('/api', (req, res) => {
     console.log("get apiden")
