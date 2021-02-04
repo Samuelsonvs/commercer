@@ -27,8 +27,8 @@ export default function CartScreen(props) {
     };
     
     const willbe = async() => {
-        const b = await Axios.get('/.netlify/functions/hello');
-        console.log(b);
+        const b = await Axios.get('/api/hello');
+        console.log(b.message);
     };
     return (
         <div className="row top">
