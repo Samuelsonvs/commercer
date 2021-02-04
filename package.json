@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
+    "start": "nodemon --watch functions --exec node --experimental-modules functions/server.js"
   },
   "keywords": [],
   "author": "",
