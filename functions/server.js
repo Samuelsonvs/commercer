@@ -26,6 +26,8 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/amazon', {
     useCreateIndex: true,
 });
 
+
+
 // app.get('/api/products/:id', (req, res) => {
 //     const product = data.products.find( x => x._id === req.params.id);
 //     if(product) {
