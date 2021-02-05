@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeCartItem } from '../exreduce/cartReducers';
 import MessageBox from '../components/MessageBox';
 import { Link } from 'react-router-dom';
-import Axios from 'axios';
 
 export default function CartScreen(props) {
     const productId = props.match.params.id;
@@ -25,11 +24,7 @@ export default function CartScreen(props) {
     const checkoutHandler = () => {
         props.history.push('/signin?redirect=shipping');
     };
-    
-    const willbe = async() => {                      //look
-        const b = await Axios.get('/api/hello');
-        console.log(b.message);
-    };
+
     return (
         <div className="row top">
             <div className="col-2">
@@ -101,7 +96,6 @@ export default function CartScreen(props) {
                                 disabled={cartItems.length === 0}>
                                     Proceed to Checkout
                                 </button>
-                            <button onClick={willbe}>TRY</button>
                         </li>
                     </ul>
                 </div>
