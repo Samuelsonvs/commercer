@@ -36,7 +36,7 @@ const api = ({ dispatch, getState }) => next => async action => {
         next(action); 
         try{
             const response = await axios.request({
-                baseURL: 'https://young-brook-08895.herokuapp.com/api', // 'http://localhost:5000/api',
+                baseURL: process.env.HOST || 'http://localhost:5000/api',
                 url,
                 method,
                 data,
