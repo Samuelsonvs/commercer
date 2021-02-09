@@ -9,7 +9,7 @@ export default function OrderScreen(props) {
     const orderId = props.match.params.id;
     const orderDetails = useSelector((state) => state.entities.orderDetails);
     const { order, loading, error } = orderDetails;
-    console.log(orderDetails);
+    console.log(order);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(detailsOrder(orderId));
