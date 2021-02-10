@@ -4,12 +4,16 @@ import { apiCallOrder } from "./api";
 const orderApi = ({dispatch, getState}) => next => async action => {
     if (action.type !== apiCallOrder.type) { return next(action)};
 
-    const {url, method, data, onStart, onEmpty, onSuccess, onDetailSlice, onError} = action.payload;
+    const {url, method, data, onStart, onEmpty, onSign, onSuccess, onReset, onDetailSlice, onError} = action.payload;
 
 
     if (onStart) {
         dispatch({ type: onStart })
     };
+
+    if (onReset) {
+        console.log("sa");
+    }
 
     if (url) {
         next(action);
@@ -27,13 +31,19 @@ const orderApi = ({dispatch, getState}) => next => async action => {
                 }
             });
             if (onDetailSlice) dispatch({type: onDetailSlice, payload: response.data.order});
+
             dispatch({ type: onSuccess, payload: response.data});
+            
             if ( onEmpty) {
                 dispatch({ type: onEmpty });
                 localStorage.removeItem('cartItems');
-            }
-            
-            
+            };
+            console.log(response);
+            if (onSign) {
+                dispatch({ type: onSign, payload: response.data });
+                localStorage.setItem('userInfo', JSON.stringify(response.data));
+            };
+             
 
         } catch (error) {
             // console.log("sa")

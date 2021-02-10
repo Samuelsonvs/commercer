@@ -12,6 +12,8 @@ import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import SigninScreen from './screens/SigninScreen';
 import OrderScreen from './screens/OrderScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import ProfilScreen from './screens/ProfilScreen';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   const cart = useSelector((state) => state.entities.cart);
@@ -45,6 +47,9 @@ function App() {
                 </Link>
                 <ul className="dropdown-content">
                   <li>
+                    <Link to="/profile">User Profile</Link>
+                  </li>
+                  <li>
                     <Link to="/orderhistory">Order History</Link>
                   </li>
                   <li>
@@ -69,6 +74,7 @@ function App() {
       <Route path="/placeorder" component={PlaceOrderScreen}></Route>
       <Route path="/order/:id" component={OrderScreen}></Route>
       <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
+      <PrivateRoute path="/profile" component={ProfilScreen}></PrivateRoute>
       <Route path="/" component={HomeScreen} exact></Route>
     </main>
     <footer className="row center">

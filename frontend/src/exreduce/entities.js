@@ -7,6 +7,8 @@ import userRegisterReducer from './userRegisterSlice';
 import orderCreateReducer from './orderSlice';
 import orderDetailsReducer from './orderDetailSlice';
 import orderMineListReducer from './ordersHistorySlice';
+import userDetailsReducer from './profilDetailSlice';
+import userUpdateProfileReducer from './profilUpdateSlice';
 
 export default combineReducers({
     productList: pListReducer,
@@ -17,4 +19,6 @@ export default combineReducers({
     orderCreate: orderCreateReducer,
     orderDetails: orderDetailsReducer,
     orderMineList: orderMineListReducer,
+    userDetails: userDetailsReducer,
+    userUpdateProfile: userUpdateProfileReducer,
 });
