@@ -1,32 +1,22 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { listOrderMine } from '../exreduce/ordersHistorySlice';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import { odetailSuccess } from '../exreduce/orderDetailSlice';
+import { listOrders } from '../exreduce/orderListSlice';
 
-export default function OrderHistoryScreen(props) {
-    const userSignin = useSelector((state) => state.entities.userSignin);
-    const { userInfo } = userSignin;
-    if (!userInfo) {
-        props.history.push('/signin');
-    };
-    const orderMineList = useSelector((state) => state.entities.orderMineList);
-    const { loading, error, orders } = orderMineList;
+export default function OrderListScreen(props) {
+    const orderList = useSelector((state) => state.entities.orderList);
+    const { loading, error, orders } = orderList;
     const dispatch = useDispatch();
-
-
-    const orderDetails = (order) => {
-        dispatch({ type: odetailSuccess.type, payload: order });
-        props.history.push(`/order/${order._id}`);
-    };
-
     useEffect(() => {
-        dispatch(listOrderMine());
+        dispatch(listOrders());
     }, [dispatch]);
+    const deleteHandler = (order) => {
+        // TODO
+    };
     return (
         <div>
-            <h1>Order History</h1>
+            <h1>Orders</h1>
             {loading ? (
                 <LoadingBox></LoadingBox>
             ) : error ? (
@@ -36,6 +26,7 @@ export default function OrderHistoryScreen(props) {
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>USER</th>
                             <th>DATE</th>
                             <th>TOTAL</th>
                             <th>PAID</th>
@@ -47,8 +38,9 @@ export default function OrderHistoryScreen(props) {
                         {orders.map((order) => (
                             <tr key={order._id}>
                                 <td>{order._id}</td>
-                                <td>{order.createdAt.substring(0, 10)}</td>
-                                <td>{order.totalPrice.toFixed(2)}</td>
+                                <td>{order.user.name}</td>
+                                <td>{order.createdAt}</td>
+                                <td>{order.totalPrice}</td>
                                 <td>{order.isPaid ? order.paidAt.substring(0, 10) : 'No'}</td>
                                 <td>
                                     {order.isDelivered
@@ -59,16 +51,25 @@ export default function OrderHistoryScreen(props) {
                                     <button
                                         type="button"
                                         className="small"
-                                        onClick={() => orderDetails(order)}
+                                        onClick={() => {
+                                            props.history.push(`/order/${order._id}`);
+                                        }}
                                         >
                                             Details
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="small"
+                                        onClick={() => deleteHandler(order)}
+                                        >
+                                            Delete
                                         </button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-            )}
+            )}      
         </div>
-    )
+    );
 }

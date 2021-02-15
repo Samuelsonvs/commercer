@@ -7,6 +7,7 @@ import path from 'path';
 import userRouter from './routers/userRouter.js';
 import productRouter from './routers/productRouter.js';
 import orderRouter from './routers/orderRouter.js';
+import uploadRouter from './routers/uploadRouter.js';
 
 dotenv.config();
 
@@ -42,12 +43,14 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/amazon', {
 //     res.send(data.products);
 // });
 
+app.use('/api/uploads', uploadRouter);
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
 
 const __dirname = path.resolve();
-// console.log(__dirname,"dirname adresi");
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
 app.use(express.static(path.join(__dirname, '/frontend/build')));
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, '/frontend/build/index.html'))

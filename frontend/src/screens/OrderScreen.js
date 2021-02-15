@@ -9,11 +9,11 @@ export default function OrderScreen(props) {
     const orderId = props.match.params.id;
     const orderDetails = useSelector((state) => state.entities.orderDetails);
     const { order, loading, error } = orderDetails;
-    console.log(order);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(detailsOrder(orderId));
-    }, [dispatch, orderId])
+    }, [dispatch,orderId]);
+    // console.log(order);
     return loading ? (
         <LoadingBox></LoadingBox>
     ) : error ? (

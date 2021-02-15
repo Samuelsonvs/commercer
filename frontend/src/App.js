@@ -14,6 +14,10 @@ import OrderScreen from './screens/OrderScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import ProfilScreen from './screens/ProfilScreen';
 import PrivateRoute from './components/PrivateRoute';
+import AdminRoute from './components/AdminRoute';
+import ProductListScreen from './screens/ProductListScreen';
+import ProductEditScreen from './screens/ProductEditScreen';
+import OrderListScreen from './screens/OrderListScreen';
 
 function App() {
   const cart = useSelector((state) => state.entities.cart);
@@ -62,6 +66,27 @@ function App() {
             ) : (
               <Link to="/signin">Sign In</Link>
             )}
+            {userInfo && userInfo.isAdmin && (
+              <div className="dropdown">
+                <Link to="#admin">
+                  Admin <i className="fa fa-caret-down"></i>
+                </Link>
+                <ul className="dropdown-content">
+                  <li>
+                    <Link to="/dashboard">Dashboard</Link>
+                  </li>
+                  <li>
+                    <Link to="/productlist">Products</Link>
+                  </li>
+                  <li>
+                    <Link to="/orderlist">Orders</Link>
+                  </li>
+                  <li>
+                    <Link to="/userlist">Users</Link>
+                  </li>
+                </ul>
+              </div>
+            )}
         </div>
     </header>
     <main>
@@ -75,6 +100,9 @@ function App() {
       <Route path="/order/:id" component={OrderScreen}></Route>
       <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
       <PrivateRoute path="/profile" component={ProfilScreen}></PrivateRoute>
+      <AdminRoute path="/productlist" component={ProductListScreen}></AdminRoute>
+      <AdminRoute path="/product/:id/edit" component={ProductEditScreen} exact></AdminRoute>
+      <AdminRoute path="/orderlist" component={OrderListScreen}></AdminRoute>
       <Route path="/" component={HomeScreen} exact></Route>
     </main>
     <footer className="row center">

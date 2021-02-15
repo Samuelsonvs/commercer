@@ -7,7 +7,7 @@ const slice = createSlice({
     name: 'prod',
     initialState: {
         list: [],
-        loading: true,
+        loading: false,
         lastFetch: null,
         error: null
     },
@@ -52,12 +52,14 @@ export const pList = () => (dispatch, getState) => {
     }));
 };
 
-// export const loadBugs = () => apiCallBegan({
-//     url,
-//     onStart: productRequested.type,
-//     onSuccess: productReceived.type,
-//     onError: productFail.type
-// })
+export const pListRef = () => apiCallBegan({
+    url,
+    onStart: productRequested.type,
+    onSuccess: productReceived.type,
+    onError: productFail.type
+});
+
+
 
 
 

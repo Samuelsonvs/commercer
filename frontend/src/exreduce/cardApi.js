@@ -4,7 +4,7 @@ import { apiCallOrder } from "./api";
 const orderApi = ({dispatch, getState}) => next => async action => {
     if (action.type !== apiCallOrder.type) { return next(action)};
 
-    const {url, method, data, onStart, onEmpty, onSign, onSuccess, onReset, onDetailSlice, onError} = action.payload;
+    const {url, method, data, onStart, onEmpty, onSign, onSuccess, onCreate, onReset, onDetailSlice, onError} = action.payload;
 
 
     if (onStart) {
@@ -32,13 +32,19 @@ const orderApi = ({dispatch, getState}) => next => async action => {
             });
             if (onDetailSlice) dispatch({type: onDetailSlice, payload: response.data.order});
 
-            dispatch({ type: onSuccess, payload: response.data});
+            if (onCreate) {
+                dispatch({ type: onCreate, payload: response.data.product})
+            };
+
+            if (onSuccess) {
+                dispatch({ type: onSuccess, payload: response.data});
+            };
             
-            if ( onEmpty) {
+            if (onEmpty) {
                 dispatch({ type: onEmpty });
                 localStorage.removeItem('cartItems');
             };
-            console.log(response);
+            
             if (onSign) {
                 dispatch({ type: onSign, payload: response.data });
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
@@ -46,8 +52,9 @@ const orderApi = ({dispatch, getState}) => next => async action => {
              
 
         } catch (error) {
-            // console.log("sa")
-            dispatch({ type: onError, payload: error.response.data.message ? error.response.data.message : error.message })
+            // console.log("hh")
+            dispatch({ type: onError, payload: error.message})
+            // dispatch({ type: onError, payload: error.response.data.message ? error.response.data.message : error.message })
         }
     }
 };

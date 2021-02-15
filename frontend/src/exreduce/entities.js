@@ -9,6 +9,11 @@ import orderDetailsReducer from './orderDetailSlice';
 import orderMineListReducer from './ordersHistorySlice';
 import userDetailsReducer from './profilDetailSlice';
 import userUpdateProfileReducer from './profilUpdateSlice';
+import productCreateReducer from './productCreateSlice';
+import productUpdateReducer from './productUpdateSlicer';
+import productDeleteReducer from './productDeleteSlice';
+import orderListReducer from './orderListSlice';
+
 
 export default combineReducers({
     productList: pListReducer,
@@ -21,4 +26,8 @@ export default combineReducers({
     orderMineList: orderMineListReducer,
     userDetails: userDetailsReducer,
     userUpdateProfile: userUpdateProfileReducer,
+    productCreate: productCreateReducer,
+    productUpdate: productUpdateReducer,
+    productDelete: productDeleteReducer,
+    orderList: orderListReducer,
 });
