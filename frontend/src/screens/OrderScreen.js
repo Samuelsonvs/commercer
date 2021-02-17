@@ -4,15 +4,32 @@ import { Link } from 'react-router-dom';
 import { detailsOrder } from '../exreduce/orderDetailSlice';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import { deliverOrder, oDeliverReset } from '../exreduce/orderDeliverSlice';
 
 export default function OrderScreen(props) {
     const orderId = props.match.params.id;
     const orderDetails = useSelector((state) => state.entities.orderDetails);
     const { order, loading, error } = orderDetails;
+    const userSignin = useSelector((state) => state.entities.userSignin);
+    const {userInfo } = userSignin;
+    
+    const orderDeliver = useSelector((state) => state.entities.orderDeliver);
+    const {
+        loading: loadingDeliver,
+        error: errorDeliver,
+        success: successDeliver,
+    } = orderDeliver;
+
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(detailsOrder(orderId));
+        if( !order || successDeliver || order && order._id == orderId) {
+            dispatch({ type: oDeliverReset})
+            dispatch(detailsOrder(orderId));
+        }
     }, [dispatch,orderId]);
+    const deliverHandler = () => {
+        dispatch(deliverOrder(order._id));
+    }
     // console.log(order);
     return loading ? (
         <LoadingBox></LoadingBox>

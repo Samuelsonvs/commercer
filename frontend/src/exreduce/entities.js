@@ -13,7 +13,8 @@ import productCreateReducer from './productCreateSlice';
 import productUpdateReducer from './productUpdateSlicer';
 import productDeleteReducer from './productDeleteSlice';
 import orderListReducer from './orderListSlice';
-
+import orderDeleteReducer from './orderDeleteSlice';
+import orderDeliverReducer from './orderDeliverSlice';
 
 export default combineReducers({
     productList: pListReducer,
@@ -30,4 +31,6 @@ export default combineReducers({
     productUpdate: productUpdateReducer,
     productDelete: productDeleteReducer,
     orderList: orderListReducer,
+    orderDelete: orderDeleteReducer,
+    orderDeliver: orderDeliverReducer,
 });

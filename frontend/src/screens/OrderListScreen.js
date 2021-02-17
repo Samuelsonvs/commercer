@@ -2,21 +2,34 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import { deleteOrder, oDeleteReset } from '../exreduce/orderDeleteSlice';
 import { listOrders } from '../exreduce/orderListSlice';
 
 export default function OrderListScreen(props) {
     const orderList = useSelector((state) => state.entities.orderList);
     const { loading, error, orders } = orderList;
+    const orderDelete = useSelector((state) => state.entities.orderDelete);
+    const {
+        loading: loadingDelete,
+        error: errorDelete,
+        success: successDelete
+    } = orderDelete;
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(listOrders());
-    }, [dispatch]);
+        dispatch({ type: oDeleteReset.type});
+        dispatch(listOrders())
+    }, [dispatch, successDelete]);
+
     const deleteHandler = (order) => {
-        // TODO
+        if (window.confirm('Are you sure to delete?')) {
+            dispatch(deleteOrder(order._id));
+        }
     };
     return (
         <div>
             <h1>Orders</h1>
+            {loadingDelete && <LoadingBox></LoadingBox>}
+            {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
             {loading ? (
                 <LoadingBox></LoadingBox>
             ) : error ? (
